@@ -22,14 +22,15 @@ import {
   Sparkles,
   ExternalLink,
   Layers,
-  AlertCircle,
   RotateCw,
   CheckCircle2,
-  Globe,
+  Copy,
+  Check,
 } from "lucide-react";
 
 export default function Home() {
   const { address, isConnected } = useAccount();
+  const [copiedContract, setCopiedContract] = useState(false);
 
   // Tick state to force countdown recalculation every 30 seconds
   const [, setTick] = useState(0);
@@ -57,10 +58,7 @@ export default function Home() {
     functionName: "getMyRecords",
     account: address,
     query: {
-      enabled:
-        isConnected &&
-        !!address &&
-        CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000",
+      enabled: isConnected && !!address,
       refetchInterval: 5000,
     },
   });
@@ -130,10 +128,6 @@ export default function Home() {
 
   // Add Record Handler
   const handleAddRecord = async (name: string, expiryTimestamp: bigint) => {
-    if (!CONTRACT_ADDRESS || CONTRACT_ADDRESS === "0x0000000000000000000000000000000000000000") {
-      throw new Error("Smart contract address not configured yet.");
-    }
-
     const tx = await writeContractAsync({
       address: CONTRACT_ADDRESS,
       abi: CONTRACT_ABI,
@@ -146,10 +140,6 @@ export default function Home() {
 
   // Delete Record Handler
   const handleDeleteRecord = async (id: bigint) => {
-    if (!CONTRACT_ADDRESS || CONTRACT_ADDRESS === "0x0000000000000000000000000000000000000000") {
-      throw new Error("Smart contract address not configured yet.");
-    }
-
     setDeletingId(id);
     try {
       const tx = await writeContractAsync({
@@ -166,26 +156,100 @@ export default function Home() {
     }
   };
 
-  const isContractConfigured =
-    CONTRACT_ADDRESS && CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000";
+  const copyContractAddress = () => {
+    navigator.clipboard.writeText(CONTRACT_ADDRESS);
+    setCopiedContract(true);
+    setTimeout(() => setCopiedContract(false), 2000);
+  };
 
   return (
     <div className="flex-1 flex flex-col min-h-screen">
       <Header />
 
-      <main className="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 flex-1">
-        {/* Banner: Smart contract configuration notice if missing */}
-        {!isContractConfigured && (
-          <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs sm:text-sm text-amber-300 flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-amber-400" />
+      <main className="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8 flex-1">
+        {/* BOT Chain Official Ecosystem & Mainnet Banner */}
+        <div className="rounded-2xl border border-charcoal-700 bg-gradient-to-r from-charcoal-900/90 via-charcoal-850 to-charcoal-900 p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
+          <div className="flex items-center gap-3.5 w-full md:w-auto">
+            <div className="relative w-11 h-11 rounded-xl bg-black border border-green-accent/30 p-1.5 flex items-center justify-center shrink-0 shadow-lg shadow-green-accent/10">
+              <img
+                src="/botchain-logo.png"
+                alt="BOT Chain Logo"
+                className="w-full h-full object-contain"
+              />
+            </div>
             <div>
-              <p className="font-semibold">Contract Not Yet Configured</p>
-              <p className="mt-1 text-slate-300">
-                Configure <code className="bg-charcoal-900 px-1.5 py-0.5 rounded font-mono">NEXT_PUBLIC_CONTRACT_ADDRESS</code> in <code className="bg-charcoal-900 px-1.5 py-0.5 rounded font-mono">.env.local</code>.
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-white text-sm sm:text-base tracking-tight">
+                  Powered by BOT Chain Mainnet
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-green-accent/10 border border-green-accent/30 text-green-soft font-semibold">
+                  Chain ID: 677
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Official decentralized ecosystem for Web3 expiration tracking
               </p>
             </div>
           </div>
-        )}
+
+          {/* Action Links with Logo at Front */}
+          <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto justify-start md:justify-end">
+            <a
+              href="https://botchain.ai"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-charcoal-800 hover:bg-charcoal-750 border border-charcoal-700 hover:border-green-accent/40 text-xs font-semibold text-slate-200 hover:text-white transition-all shadow-sm"
+            >
+              <img
+                src="/botchain-logo.png"
+                alt="BOT Chain"
+                className="w-4 h-4 rounded-md object-contain shrink-0"
+              />
+              <span>BOT Chain Website</span>
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+            </a>
+
+            <a
+              href="https://scan.botchain.ai"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-charcoal-800 hover:bg-charcoal-750 border border-charcoal-700 hover:border-green-accent/40 text-xs font-semibold text-slate-200 hover:text-white transition-all shadow-sm"
+            >
+              <img
+                src="/botchain-logo.png"
+                alt="BOT Chain Explorer"
+                className="w-4 h-4 rounded-md object-contain shrink-0"
+              />
+              <span>BOT Chain Explorer</span>
+              <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+            </a>
+
+            {/* Verified Contract Pill */}
+            <div className="flex items-center bg-charcoal-800 border border-charcoal-700 rounded-xl overflow-hidden shadow-sm">
+              <a
+                href={`https://scan.botchain.ai/address/${CONTRACT_ADDRESS}#code`}
+                target="_blank"
+                rel="noreferrer"
+                title="View Verified Mainnet Contract on BotchainScan"
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono text-purple-soft hover:text-white transition-colors"
+              >
+                <span>Contract: {CONTRACT_ADDRESS.slice(0, 6)}...{CONTRACT_ADDRESS.slice(-4)}</span>
+                <ExternalLink className="w-3 h-3 text-slate-400" />
+              </a>
+              <button
+                onClick={copyContractAddress}
+                title="Copy Mainnet Contract Address"
+                className="px-2.5 py-2 text-slate-400 hover:text-white hover:bg-charcoal-750 border-l border-charcoal-700 transition-colors"
+              >
+                {copiedContract ? (
+                  <Check className="w-3.5 h-3.5 text-green-soft" />
+                ) : (
+                  <Copy className="w-3.5 h-3.5" />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
 
         {/* Live Transaction Status Notifications */}
         {pendingTxHash && (
@@ -207,7 +271,9 @@ export default function Home() {
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-slate-300 hover:text-white border border-charcoal-700 text-xs shrink-0 transition-colors"
             >
-              View on BOT Chain Explorer <ExternalLink className="w-3.5 h-3.5" />
+              <img src="/botchain-logo.png" alt="Explorer" className="w-3.5 h-3.5 rounded object-contain" />
+              <span>View on BOT Chain Explorer</span>
+              <ExternalLink className="w-3 h-3" />
             </a>
           </div>
         )}
@@ -229,7 +295,9 @@ export default function Home() {
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-slate-300 hover:text-white border border-charcoal-700 text-xs shrink-0 transition-colors"
             >
-              Receipt on Explorer <ExternalLink className="w-3.5 h-3.5" />
+              <img src="/botchain-logo.png" alt="Explorer" className="w-3.5 h-3.5 rounded object-contain" />
+              <span>Receipt on Explorer</span>
+              <ExternalLink className="w-3 h-3" />
             </a>
           </div>
         )}
@@ -365,7 +433,7 @@ export default function Home() {
       </main>
 
       {/* Footer / BOT Chain Ecosystem Section */}
-      <footer className="border-t border-charcoal-800 py-8 bg-charcoal-950/90 mt-auto">
+      <footer className="border-t border-charcoal-800 py-8 bg-charcoal-950/95 mt-auto">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-400">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-muted/30 to-green-muted/20 border border-purple-muted/30 flex items-center justify-center">
@@ -377,7 +445,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* BOT Chain Ecosystem Links & Verification */}
+          {/* BOT Chain Ecosystem Links with Logo at Front */}
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-charcoal-900 border border-charcoal-800 text-xs">
               <span className="w-2 h-2 rounded-full bg-green-accent animate-pulse" />
@@ -388,9 +456,13 @@ export default function Home() {
               href="https://botchain.ai"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 font-medium text-purple-soft hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 font-medium text-slate-300 hover:text-white transition-colors"
             >
-              <Globe className="w-3.5 h-3.5" />
+              <img
+                src="/botchain-logo.png"
+                alt="BOT Chain"
+                className="w-4 h-4 rounded-md object-contain shrink-0"
+              />
               <span>BOT Chain Website</span>
               <ExternalLink className="w-3 h-3 text-slate-500" />
             </a>
@@ -399,8 +471,13 @@ export default function Home() {
               href="https://scan.botchain.ai"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 font-medium text-green-soft hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 font-medium text-slate-300 hover:text-white transition-colors"
             >
+              <img
+                src="/botchain-logo.png"
+                alt="BOT Chain Explorer"
+                className="w-4 h-4 rounded-md object-contain shrink-0"
+              />
               <span>BOT Chain Explorer</span>
               <ExternalLink className="w-3 h-3 text-slate-500" />
             </a>
@@ -409,9 +486,9 @@ export default function Home() {
               href={`https://scan.botchain.ai/address/${CONTRACT_ADDRESS}#code`}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 font-mono text-slate-400 hover:text-white transition-colors bg-charcoal-900/60 px-2.5 py-1 rounded-lg border border-charcoal-800"
+              className="inline-flex items-center gap-1.5 font-mono text-purple-soft hover:text-white transition-colors bg-charcoal-900/60 px-2.5 py-1 rounded-lg border border-charcoal-800"
             >
-              <span>Contract: {CONTRACT_ADDRESS.slice(0, 6)}...{CONTRACT_ADDRESS.slice(-4)}</span>
+              <span>Mainnet Contract: {CONTRACT_ADDRESS.slice(0, 6)}...{CONTRACT_ADDRESS.slice(-4)}</span>
               <ExternalLink className="w-3 h-3 text-slate-500" />
             </a>
           </div>

@@ -1,9 +1,11 @@
 import { parseAbi } from "viem";
 import deployment from "./deployment.json";
 
+export const MAINNET_CONTRACT_ADDRESS = "0xbDcBdb48271D430f3051bABA75934fB928A61171" as const;
+
 export const CONTRACT_ADDRESS = (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS ||
   deployment.contractAddress ||
-  "0x0000000000000000000000000000000000000000") as `0x${string}`;
+  MAINNET_CONTRACT_ADDRESS) as `0x${string}`;
 
 export const CONTRACT_ABI = parseAbi([
   "struct Record { uint256 id; string name; uint256 expiryDate; address owner; uint256 createdAt; bool isDeleted; }",

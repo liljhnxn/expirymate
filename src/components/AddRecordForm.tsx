@@ -72,7 +72,7 @@ export function AddRecordForm({ onAdd, isSubmitting = false }: AddRecordFormProp
           </div>
           <div>
             <h3 className="text-base font-semibold text-white">Add New Expiry Record</h3>
-            <p className="text-xs text-slate-400">Save an item to Botchain blockchain</p>
+            <p className="text-xs text-slate-400">Save an item to BOT Chain blockchain</p>
           </div>
         </div>
       </div>
