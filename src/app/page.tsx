@@ -169,6 +169,13 @@ export default function Home() {
   const isContractConfigured =
     CONTRACT_ADDRESS && CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000";
 
+  const explorerUrl =
+    process.env.NEXT_PUBLIC_EXPLORER_URL || "https://scan.botchain.ai";
+  const chainIdName =
+    process.env.NEXT_PUBLIC_CHAIN_ID === "968"
+      ? "Botchain Testnet (Chain ID 968)"
+      : "Botchain Mainnet (Chain ID 677)";
+
   return (
     <div className="flex-1 flex flex-col">
       <Header />
@@ -181,7 +188,7 @@ export default function Home() {
             <div>
               <p className="font-semibold">Contract Not Yet Deployed</p>
               <p className="mt-1 text-slate-300">
-                To connect to Botchain Testnet, configure{" "}
+                To connect to Botchain, configure{" "}
                 <code className="bg-charcoal-900 px-1.5 py-0.5 rounded font-mono">
                   NEXT_PUBLIC_CONTRACT_ADDRESS
                 </code>{" "}
@@ -206,12 +213,12 @@ export default function Home() {
               </div>
             </div>
             <a
-              href={`https://scan.bohr.life/tx/${pendingTxHash}`}
+              href={`${explorerUrl}/tx/${pendingTxHash}`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-slate-300 hover:text-white border border-charcoal-700 text-xs shrink-0 transition-colors"
             >
-              View on BohrScan <ExternalLink className="w-3.5 h-3.5" />
+              View on Explorer <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
         )}
@@ -228,7 +235,7 @@ export default function Home() {
               </div>
             </div>
             <a
-              href={`https://scan.bohr.life/tx/${lastConfirmedTx}`}
+              href={`${explorerUrl}/tx/${lastConfirmedTx}`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-slate-300 hover:text-white border border-charcoal-700 text-xs shrink-0 transition-colors"
@@ -300,7 +307,7 @@ export default function Home() {
                 <div className="w-8 h-8 rounded-lg bg-purple-muted/20 text-purple-soft flex items-center justify-center mb-3">
                   <Layers className="w-4 h-4" />
                 </div>
-                <h4 className="text-sm font-semibold text-white">Botchain Testnet</h4>
+                <h4 className="text-sm font-semibold text-white">Botchain Mainnet</h4>
                 <p className="text-xs text-slate-400 mt-1">
                   Ultra-fast, low-gas blockchain records stored transparently.
                 </p>
@@ -378,10 +385,10 @@ export default function Home() {
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-green-accent" />
-              Botchain Testnet (Chain ID 968)
+              {chainIdName}
             </span>
             <a
-              href="https://scan.bohr.life"
+              href={explorerUrl}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1 hover:text-slate-300 transition-colors"

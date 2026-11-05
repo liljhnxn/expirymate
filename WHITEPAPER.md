@@ -1,9 +1,9 @@
 # ExpiryMate Whitepaper & Pitch Deck
 **Tagline:** Never miss an expiry date.  
-**Network:** Botchain Testnet (Chain ID: `968`)  
-**Smart Contract:** [`0x5BE39A6ba579a7aDc8269B8169Af10a557b5bCD2`](https://scan.bohr.life/address/0x5BE39A6ba579a7aDc8269B8169Af10a557b5bCD2)  
+**Network:** Botchain Mainnet (Chain ID: `677`)  
+**Smart Contract:** [`0xbDcBdb48271D430f3051bABA75934fB928A61171`](https://scan.botchain.ai/address/0xbDcBdb48271D430f3051bABA75934fB928A61171)  
 **Repository:** [https://github.com/liljhnxn/expirymate](https://github.com/liljhnxn/expirymate)  
-**Version:** 1.0.0 — October 2026  
+**Version:** 1.1.0 — November 2026  
 
 ---
 

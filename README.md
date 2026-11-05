@@ -2,7 +2,7 @@
 
 > **Never miss an expiry date.**
 
-**ExpiryMate** is a decentralized Web3 application built on the **Botchain Testnet** that allows users to record, track, and monitor expiry dates of important personal items (such as passports, warranties, subscriptions, and licences) securely on the blockchain.
+**ExpiryMate** is a decentralized Web3 application built on the **Botchain Mainnet** that allows users to record, track, and monitor expiry dates of important personal items (such as passports, warranties, subscriptions, and licences) securely on the blockchain.
 
 ---
 
@@ -28,13 +28,16 @@
 
 ---
 
-## 🌐 Blockchain Network Details
+## 🌐 Blockchain Network Details (Mainnet)
 
-* **Network Name:** Botchain Testnet
-* **Chain ID:** `968`
-* **RPC URL:** `https://rpc.bohr.life`
-* **Currency Symbol:** `BOHR`
-* **Block Explorer:** [https://scan.bohr.life](https://scan.bohr.life)
+* **Network Name:** Botchain Mainnet
+* **Chain ID:** `677`
+* **RPC URL:** `https://rpc.botchain.ai`
+* **Currency Symbol:** `BOT`
+* **Block Explorer:** [https://scan.botchain.ai](https://scan.botchain.ai)
+* **Deployed Contract:** [`0xbDcBdb48271D430f3051bABA75934fB928A61171`](https://scan.botchain.ai/address/0xbDcBdb48271D430f3051bABA75934fB928A61171#code)
+
+*(Botchain Testnet Chain ID 968 is also supported)*
 
 ---
 
@@ -56,14 +59,14 @@ The contract is located in `contracts/ExpiryMate.sol` and provides:
 
 * **Node.js** v18+ (tested on Node v20/v25)
 * **npm** or package manager of choice
-* **MetaMask** browser extension configured for Botchain Testnet (Chain ID `968`)
+* **MetaMask** browser extension configured for Botchain Mainnet (Chain ID `677`)
 
 ### 2. Installation
 
 ```bash
 # Clone the repository
-git clone <repo-url>
-cd ExpiryMate
+git clone https://github.com/liljhnxn/expirymate.git
+cd expirymate
 
 # Install dependencies
 npm install
@@ -79,11 +82,14 @@ cp .env.example .env.local
 
 Inside `.env.local`:
 ```env
-# Optional: Private key of the deployer wallet (funded with Botchain testnet BOHR)
+# Optional: Private key of the deployer wallet (funded with Botchain BOT)
 PRIVATE_KEY=your_private_key_here
 
-# Deployed contract address
-NEXT_PUBLIC_CONTRACT_ADDRESS=0x...
+# Deployed contract address on Botchain Mainnet
+NEXT_PUBLIC_CONTRACT_ADDRESS=0xbDcBdb48271D430f3051bABA75934fB928A61171
+NEXT_PUBLIC_CHAIN_ID=677
+NEXT_PUBLIC_RPC_URL=https://rpc.botchain.ai
+NEXT_PUBLIC_EXPLORER_URL=https://scan.botchain.ai
 ```
 
 ---
@@ -95,23 +101,19 @@ To compile the contract:
 npm run compile
 ```
 
-To run the comprehensive test suite (covers adding records, validation, permissions, and deletions):
+To run the comprehensive test suite:
 ```bash
 npm test
 ```
 
 ---
 
-## 🚢 Deploying to Botchain Testnet
+## 🚢 Deploying to Botchain Mainnet
 
-1. Ensure your deployer wallet on Botchain Testnet has some testnet BOHR.
-2. Set `PRIVATE_KEY` in your `.env` or `.env.local`.
-3. Run the deployment script:
+To deploy to Botchain Mainnet:
 ```bash
-npm run deploy:botchain
+npm run deploy:mainnet
 ```
-4. The deployment script will output the deployed contract address and automatically save the deployment information in `src/config/deployment.json`.
-5. Update `NEXT_PUBLIC_CONTRACT_ADDRESS` in `.env.local` with this address.
 
 ---
 
@@ -126,10 +128,9 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 1. Click **Connect Wallet** in the top navigation.
-2. Ensure MetaMask is connected to **Botchain Testnet (968)**. The app will prompt you to switch if you are on another network.
+2. Ensure MetaMask is connected to **Botchain Mainnet (677)**.
 3. Enter an item name and select an expiry date in the future.
 4. Click **Save Record** to submit the transaction to the blockchain.
-5. Watch the dashboard update live with real-time countdowns!
 
 ---
 

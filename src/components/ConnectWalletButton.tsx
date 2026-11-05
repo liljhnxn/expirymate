@@ -1,7 +1,7 @@
 "use client";
 
 import { useAccount, useConnect, useDisconnect, useChainId, useSwitchChain } from "wagmi";
-import { botchainTestnet } from "@/config/botchain";
+import { botchainMainnet } from "@/config/botchain";
 import { Wallet, LogOut, AlertTriangle, Check, Copy } from "lucide-react";
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ export function ConnectWalletButton() {
   const { switchChain } = useSwitchChain();
   const [copied, setCopied] = useState(false);
 
-  const isWrongNetwork = isConnected && chainId !== botchainTestnet.id;
+  const isWrongNetwork = isConnected && chainId !== botchainMainnet.id;
 
   const handleCopy = () => {
     if (!address) return;
@@ -46,16 +46,16 @@ export function ConnectWalletButton() {
       <div className="flex items-center gap-2">
         {isWrongNetwork ? (
           <button
-            onClick={() => switchChain({ chainId: botchainTestnet.id })}
+            onClick={() => switchChain({ chainId: botchainMainnet.id })}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20 transition-colors"
           >
             <AlertTriangle className="w-3.5 h-3.5" />
-            Switch to Botchain
+            Switch to Botchain Mainnet
           </button>
         ) : (
           <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-accent/10 border border-green-accent/20 text-green-soft">
             <span className="w-1.5 h-1.5 rounded-full bg-green-accent animate-pulse" />
-            Botchain (968)
+            Botchain Mainnet (677)
           </span>
         )}
 
