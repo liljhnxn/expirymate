@@ -1,15 +1,17 @@
 # ExpiryMate Whitepaper & Pitch Deck
 **Tagline:** Never miss an expiry date.  
-**Network:** Botchain Mainnet (Chain ID: `677`)  
+**Network:** BOT Chain Mainnet (Chain ID: `677`)  
 **Smart Contract:** [`0xbDcBdb48271D430f3051bABA75934fB928A61171`](https://scan.botchain.ai/address/0xbDcBdb48271D430f3051bABA75934fB928A61171)  
+**BOT Chain Website:** [https://botchain.ai](https://botchain.ai)  
+**BOT Chain Explorer:** [https://scan.botchain.ai](https://scan.botchain.ai)  
 **Repository:** [https://github.com/liljhnxn/expirymate](https://github.com/liljhnxn/expirymate)  
-**Version:** 1.1.0 — November 2026  
+**Version:** 2.0.0 — November 2026  
 
 ---
 
 ## 1. Executive Summary
 
-**ExpiryMate** is a decentralized, non-custodial application (dApp) built on the **Botchain** blockchain designed to solve a universal problem: tracking the expiration dates of critical personal and business items—including passports, driver's licences, product warranties, insurance policies, and software subscriptions—without compromising privacy or relying on centralized databases.
+**ExpiryMate** is a decentralized, non-custodial application (dApp) built on the **BOT Chain** blockchain designed to solve a universal problem: tracking the expiration dates of critical personal and business items—including passports, driver's licences, product warranties, insurance policies, and software subscriptions—without compromising privacy or relying on centralized databases.
 
 Traditional expiration-tracking software relies on centralized database silos, requiring invasive user accounts, emails, and sensitive data uploads that are susceptible to breaches, platform obsolescence, and subscription paywalls. ExpiryMate reimagines expiry tracking as a trustless on-chain utility: users retain cryptographic ownership of their tracking records, monitor real-time expiration countdowns, and execute immutable updates directly through their Web3 wallets.
 
@@ -33,7 +35,7 @@ Every individual and business manages dozens of time-sensitive documents and ass
 
 ExpiryMate bridges everyday utility with blockchain security:
 
-* **100% On-Chain Durability:** Records are permanently stored on the Botchain ledger. As long as the blockchain operates, your records remain accessible.
+* **100% On-Chain Durability:** Records are permanently stored on the BOT Chain ledger. As long as the blockchain operates, your records remain accessible.
 * **Privacy-by-Design Paradigm:** The smart contract requires only a general descriptive label (e.g., *"Passport"*, *"Gym Pass"*) and a Unix expiration timestamp. **Zero sensitive PII, document numbers, or images are ever stored on-chain.**
 * **Cryptographic Self-Sovereignty:** Records are strictly mapped to the creator's wallet address (`msg.sender`). Only the creator wallet can view and delete its records.
 * **Autonomous Live Countdowns:** Frontend countdown algorithms dynamically update without periodic server roundtrips, categorizing records into color-coded urgency states.
@@ -65,8 +67,9 @@ ExpiryMate bridges everyday utility with blockchain security:
                                  |
                                  v
   +-------------------------------------------------------------+
-  |                    BOTCHAIN TESTNET                         |
-  |  Chain ID: 968  |  RPC: https://rpc.bohr.life               |
+  |                        BOT CHAIN                            |
+  |  Chain ID: 677  |  RPC: https://rpc.botchain.ai             |
+  |  Native Token: BOT                                          |
   |                                                             |
   |  +-------------------------------------------------------+  |
   |  |            ExpiryMate.sol (Smart Contract)            |  |
@@ -79,6 +82,7 @@ ExpiryMate bridges everyday utility with blockchain security:
 ```
 
 ### Smart Contract Implementation:
+* **Contract Address:** `0xbDcBdb48271D430f3051bABA75934fB928A61171`
 * **Contract Language:** Solidity `^0.8.20`
 * **EVM Target:** Paris
 * **Gas Optimizations:** Storage-efficient packing, internal index mappings, and zero loop mutations on state.
@@ -90,18 +94,18 @@ ExpiryMate bridges everyday utility with blockchain security:
 
 ---
 
-## 6. Value Proposition for the Botchain Ecosystem
+## 6. Value Proposition for the BOT Chain Ecosystem
 
-1. **Everyday Consumer Utility:** Moves Web3 beyond pure speculation into daily practical utility, attracting non-DeFi users to Botchain.
-2. **Transaction Velocity & Gas Utilization:** Encourages regular micro-transactions on Botchain as users log, renew, and maintain life records.
-3. **Showcase of Botchain Speed & Low Fees:** High-frequency, lightweight consumer dApps thrive on Botchain's responsive block times and negligible gas costs compared to Ethereum mainnet.
+1. **Everyday Consumer Utility:** Moves Web3 beyond pure speculation into daily practical utility, attracting non-DeFi users to BOT Chain.
+2. **Transaction Velocity & Gas Utilization:** Encourages regular micro-transactions on BOT Chain as users log, renew, and maintain life records.
+3. **Showcase of BOT Chain Speed & Low Fees:** High-frequency, lightweight consumer dApps thrive on BOT Chain's responsive block times and negligible gas costs compared to Ethereum mainnet.
 
 ---
 
 ## 7. Roadmap & Future Innovations
 
-### Phase 1: MVP & Mainnet Deployment (Current)
-- [x] Solidity smart contract deployed and verified on Botchain Testnet.
+### Phase 1: Mainnet Deployment (Complete)
+- [x] Solidity smart contract deployed and verified on BOT Chain Mainnet (`0xbDcBdb48271D430f3051bABA75934fB928A61171`).
 - [x] Complete Next.js frontend with Wagmi v2 & live countdown engine.
 - [x] GitHub repository open-sourced with full test suite.
 
@@ -116,10 +120,12 @@ ExpiryMate bridges everyday utility with blockchain security:
 ## 8. Official Links & Verification
 
 * **Live GitHub Repository:** [https://github.com/liljhnxn/expirymate](https://github.com/liljhnxn/expirymate)
-* **Verified Contract on BohrScan:** [0x5BE39A6ba579a7aDc8269B8169Af10a557b5bCD2](https://scan.bohr.life/address/0x5BE39A6ba579a7aDc8269B8169Af10a557b5bCD2#code)
-* **Chain ID:** 968
-* **RPC URL:** `https://rpc.bohr.life`
-* **Explorer:** `https://scan.bohr.life`
+* **Verified Contract on BOT Chain Explorer:** [`0xbDcBdb48271D430f3051bABA75934fB928A61171`](https://scan.botchain.ai/address/0xbDcBdb48271D430f3051bABA75934fB928A61171#code)
+* **BOT Chain Official Website:** [https://botchain.ai](https://botchain.ai)
+* **BOT Chain Explorer:** [https://scan.botchain.ai](https://scan.botchain.ai)
+* **Chain ID:** `677`
+* **RPC URL:** `https://rpc.botchain.ai`
+* **Native Token:** `BOT`
 
 ---
 

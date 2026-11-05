@@ -16,7 +16,7 @@ import {
 } from "wagmi";
 import { useState, useEffect, useMemo } from "react";
 import {
-  Wallet,
+  Clock,
   ShieldCheck,
   CalendarClock,
   Sparkles,
@@ -25,6 +25,7 @@ import {
   AlertCircle,
   RotateCw,
   CheckCircle2,
+  Globe,
 } from "lucide-react";
 
 export default function Home() {
@@ -45,7 +46,6 @@ export default function Home() {
   const [deletingId, setDeletingId] = useState<bigint | null>(null);
 
   // Wagmi contract read: getMyRecords
-  // IMPORTANT: `account: address` is required so eth_call sets `from: address` (msg.sender)
   const {
     data: rawRecords,
     isLoading: isRecordsLoading,
@@ -61,7 +61,7 @@ export default function Home() {
         isConnected &&
         !!address &&
         CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000",
-      refetchInterval: 5000, // Poll every 5s so new blocks reflect automatically
+      refetchInterval: 5000,
     },
   });
 
@@ -169,15 +169,8 @@ export default function Home() {
   const isContractConfigured =
     CONTRACT_ADDRESS && CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000";
 
-  const explorerUrl =
-    process.env.NEXT_PUBLIC_EXPLORER_URL || "https://scan.botchain.ai";
-  const chainIdName =
-    process.env.NEXT_PUBLIC_CHAIN_ID === "968"
-      ? "Botchain Testnet (Chain ID 968)"
-      : "Botchain Mainnet (Chain ID 677)";
-
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col min-h-screen">
       <Header />
 
       <main className="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 flex-1">
@@ -186,13 +179,9 @@ export default function Home() {
           <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs sm:text-sm text-amber-300 flex items-start gap-3">
             <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-amber-400" />
             <div>
-              <p className="font-semibold">Contract Not Yet Deployed</p>
+              <p className="font-semibold">Contract Not Yet Configured</p>
               <p className="mt-1 text-slate-300">
-                To connect to Botchain, configure{" "}
-                <code className="bg-charcoal-900 px-1.5 py-0.5 rounded font-mono">
-                  NEXT_PUBLIC_CONTRACT_ADDRESS
-                </code>{" "}
-                in <code className="bg-charcoal-900 px-1.5 py-0.5 rounded font-mono">.env.local</code>.
+                Configure <code className="bg-charcoal-900 px-1.5 py-0.5 rounded font-mono">NEXT_PUBLIC_CONTRACT_ADDRESS</code> in <code className="bg-charcoal-900 px-1.5 py-0.5 rounded font-mono">.env.local</code>.
               </p>
             </div>
           </div>
@@ -205,7 +194,7 @@ export default function Home() {
               <div className="w-4 h-4 border-2 border-purple-soft border-t-transparent rounded-full animate-spin shrink-0" />
               <div>
                 <p className="font-semibold text-white">
-                  {isTxWaiting ? "Transaction Mined — Awaiting Confirmation..." : "Transaction Broadcast to Botchain..."}
+                  {isTxWaiting ? "Transaction Mined — Awaiting Confirmation..." : "Transaction Broadcast to BOT Chain..."}
                 </p>
                 <p className="text-slate-400 text-xs mt-0.5 font-mono">
                   Tx: {pendingTxHash.slice(0, 10)}...{pendingTxHash.slice(-8)}
@@ -213,12 +202,12 @@ export default function Home() {
               </div>
             </div>
             <a
-              href={`${explorerUrl}/tx/${pendingTxHash}`}
+              href={`https://scan.botchain.ai/tx/${pendingTxHash}`}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-slate-300 hover:text-white border border-charcoal-700 text-xs shrink-0 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-slate-300 hover:text-white border border-charcoal-700 text-xs shrink-0 transition-colors"
             >
-              View on Explorer <ExternalLink className="w-3.5 h-3.5" />
+              View on BOT Chain Explorer <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
         )}
@@ -228,19 +217,19 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <CheckCircle2 className="w-5 h-5 text-green-accent shrink-0" />
               <div>
-                <p className="font-semibold text-white">Transaction Confirmed on Botchain!</p>
+                <p className="font-semibold text-white">Transaction Confirmed on BOT Chain!</p>
                 <p className="text-slate-300 text-xs mt-0.5">
-                  Your record was confirmed in a block and your dashboard has been updated.
+                  Your record has been securely confirmed on the blockchain and updated on your dashboard.
                 </p>
               </div>
             </div>
             <a
-              href={`${explorerUrl}/tx/${lastConfirmedTx}`}
+              href={`https://scan.botchain.ai/tx/${lastConfirmedTx}`}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-slate-300 hover:text-white border border-charcoal-700 text-xs shrink-0 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-slate-300 hover:text-white border border-charcoal-700 text-xs shrink-0 transition-colors"
             >
-              Receipt <ExternalLink className="w-3.5 h-3.5" />
+              Receipt on Explorer <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
         )}
@@ -263,7 +252,7 @@ export default function Home() {
             </h1>
 
             <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-              Save important items and expiry dates directly on the blockchain. Monitor real-time
+              Save important items and expiry dates directly on BOT Chain. Monitor real-time
               countdowns for passports, licences, warranties, and subscriptions with absolute ownership.
             </p>
 
@@ -289,7 +278,7 @@ export default function Home() {
                 </div>
                 <h4 className="text-sm font-semibold text-white">Non-Custodial</h4>
                 <p className="text-xs text-slate-400 mt-1">
-                  Only you have the authority to manage and delete your on-chain records.
+                  Only you have the cryptographic authority to manage and delete your records.
                 </p>
               </div>
 
@@ -307,9 +296,9 @@ export default function Home() {
                 <div className="w-8 h-8 rounded-lg bg-purple-muted/20 text-purple-soft flex items-center justify-center mb-3">
                   <Layers className="w-4 h-4" />
                 </div>
-                <h4 className="text-sm font-semibold text-white">Botchain Mainnet</h4>
+                <h4 className="text-sm font-semibold text-white">BOT Chain (677)</h4>
                 <p className="text-xs text-slate-400 mt-1">
-                  Ultra-fast, low-gas blockchain records stored transparently.
+                  Ultra-fast, low-gas blockchain records stored transparently and permanently.
                 </p>
               </div>
             </div>
@@ -375,25 +364,55 @@ export default function Home() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-charcoal-800 py-6 bg-charcoal-950/80">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-          <div>
-            <span className="font-semibold text-slate-400">ExpiryMate</span> — Never miss an expiry
-            date.
+      {/* Footer / BOT Chain Ecosystem Section */}
+      <footer className="border-t border-charcoal-800 py-8 bg-charcoal-950/90 mt-auto">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-400">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-muted/30 to-green-muted/20 border border-purple-muted/30 flex items-center justify-center">
+              <Clock className="w-4 h-4 text-purple-soft" />
+            </div>
+            <div>
+              <p className="font-semibold text-slate-200 text-sm">ExpiryMate</p>
+              <p className="text-slate-500 text-xs">Never miss an expiry date.</p>
+            </div>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-accent" />
-              {chainIdName}
-            </span>
+
+          {/* BOT Chain Ecosystem Links & Verification */}
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-charcoal-900 border border-charcoal-800 text-xs">
+              <span className="w-2 h-2 rounded-full bg-green-accent animate-pulse" />
+              <span className="font-medium text-slate-300">BOT Chain (Chain ID: 677)</span>
+            </div>
+
             <a
-              href={explorerUrl}
+              href="https://botchain.ai"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 hover:text-slate-300 transition-colors"
+              className="inline-flex items-center gap-1.5 font-medium text-purple-soft hover:text-white transition-colors"
             >
-              Explorer <ExternalLink className="w-3 h-3" />
+              <Globe className="w-3.5 h-3.5" />
+              <span>BOT Chain Website</span>
+              <ExternalLink className="w-3 h-3 text-slate-500" />
+            </a>
+
+            <a
+              href="https://scan.botchain.ai"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 font-medium text-green-soft hover:text-white transition-colors"
+            >
+              <span>BOT Chain Explorer</span>
+              <ExternalLink className="w-3 h-3 text-slate-500" />
+            </a>
+
+            <a
+              href={`https://scan.botchain.ai/address/${CONTRACT_ADDRESS}#code`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 font-mono text-slate-400 hover:text-white transition-colors bg-charcoal-900/60 px-2.5 py-1 rounded-lg border border-charcoal-800"
+            >
+              <span>Contract: {CONTRACT_ADDRESS.slice(0, 6)}...{CONTRACT_ADDRESS.slice(-4)}</span>
+              <ExternalLink className="w-3 h-3 text-slate-500" />
             </a>
           </div>
         </div>

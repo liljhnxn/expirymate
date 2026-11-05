@@ -5,7 +5,7 @@ import { Providers } from "./providers";
 export const metadata: Metadata = {
   title: "ExpiryMate — Never miss an expiry date",
   description:
-    "Decentralized expiration tracker on Botchain Testnet. Store items and monitor countdowns securely on the blockchain.",
+    "Decentralized expiration tracker on BOT Chain. Store items and monitor countdowns securely on the blockchain.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

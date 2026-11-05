@@ -2,13 +2,13 @@
 
 > **Never miss an expiry date.**
 
-**ExpiryMate** is a decentralized Web3 application built on the **Botchain Mainnet** that allows users to record, track, and monitor expiry dates of important personal items (such as passports, warranties, subscriptions, and licences) securely on the blockchain.
+**ExpiryMate** is a decentralized Web3 application built on **BOT Chain** that allows users to record, track, and monitor expiry dates of important personal items (such as passports, warranties, subscriptions, and licences) securely on the blockchain.
 
 ---
 
 ## 🌟 Key Features
 
-* **100% On-Chain Storage:** All records are stored directly on the Botchain smart contract with zero centralized database or backend dependencies.
+* **100% On-Chain Storage:** All records are stored directly on the BOT Chain smart contract with zero centralized database or backend dependencies.
 * **Wallet-Bound Ownership:** Users view and manage only their own records. Records can only be deleted by the wallet that created them.
 * **Real-Time Dynamic Countdowns:** Live countdown timers compute remaining days and time until expiration, updating automatically while the app is open.
 * **Color-Coded Status Badges:**
@@ -28,16 +28,15 @@
 
 ---
 
-## 🌐 Blockchain Network Details (Mainnet)
+## 🌐 BOT Chain Official Ecosystem Details
 
-* **Network Name:** Botchain Mainnet
+* **BOT Chain Website:** [https://botchain.ai](https://botchain.ai)
+* **BOT Chain Explorer:** [https://scan.botchain.ai](https://scan.botchain.ai)
+* **Network Name:** BOT Chain
 * **Chain ID:** `677`
 * **RPC URL:** `https://rpc.botchain.ai`
 * **Currency Symbol:** `BOT`
-* **Block Explorer:** [https://scan.botchain.ai](https://scan.botchain.ai)
-* **Deployed Contract:** [`0xbDcBdb48271D430f3051bABA75934fB928A61171`](https://scan.botchain.ai/address/0xbDcBdb48271D430f3051bABA75934fB928A61171#code)
-
-*(Botchain Testnet Chain ID 968 is also supported)*
+* **Deployed & Verified Contract:** [`0xbDcBdb48271D430f3051bABA75934fB928A61171`](https://scan.botchain.ai/address/0xbDcBdb48271D430f3051bABA75934fB928A61171#code)
 
 ---
 
@@ -59,7 +58,7 @@ The contract is located in `contracts/ExpiryMate.sol` and provides:
 
 * **Node.js** v18+ (tested on Node v20/v25)
 * **npm** or package manager of choice
-* **MetaMask** browser extension configured for Botchain Mainnet (Chain ID `677`)
+* **MetaMask** browser extension configured for BOT Chain (Chain ID `677`)
 
 ### 2. Installation
 
@@ -82,14 +81,15 @@ cp .env.example .env.local
 
 Inside `.env.local`:
 ```env
-# Optional: Private key of the deployer wallet (funded with Botchain BOT)
+# Optional: Private key of the deployer wallet (funded with BOT Chain BOT)
 PRIVATE_KEY=your_private_key_here
 
-# Deployed contract address on Botchain Mainnet
+# Deployed contract address on BOT Chain
 NEXT_PUBLIC_CONTRACT_ADDRESS=0xbDcBdb48271D430f3051bABA75934fB928A61171
 NEXT_PUBLIC_CHAIN_ID=677
 NEXT_PUBLIC_RPC_URL=https://rpc.botchain.ai
 NEXT_PUBLIC_EXPLORER_URL=https://scan.botchain.ai
+NEXT_PUBLIC_BOTCHAIN_URL=https://botchain.ai
 ```
 
 ---
@@ -108,11 +108,11 @@ npm test
 
 ---
 
-## 🚢 Deploying to Botchain Mainnet
+## 🚢 Deploying to BOT Chain
 
-To deploy to Botchain Mainnet:
+To deploy to BOT Chain:
 ```bash
-npm run deploy:mainnet
+npm run deploy
 ```
 
 ---
@@ -128,7 +128,7 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 1. Click **Connect Wallet** in the top navigation.
-2. Ensure MetaMask is connected to **Botchain Mainnet (677)**.
+2. Ensure MetaMask is connected to **BOT Chain (677)**.
 3. Enter an item name and select an expiry date in the future.
 4. Click **Save Record** to submit the transaction to the blockchain.
 
